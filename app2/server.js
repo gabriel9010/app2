@@ -1,6 +1,7 @@
 // server.js
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors'); // Aggiungi questa riga per includere il middleware CORS
 
 const app = express();
 const PORT = 3000;
@@ -9,17 +10,18 @@ const PORT = 3000;
 mongoose.connect('mongodb://localhost:27017/memoGP', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-   
 }).then(() => {
     console.log('Connected to MongoDB');
 }).catch((err) => {
     console.error('Error connecting to MongoDB', err);
 });
 
+// Middleware CORS per consentire le chiamate da origini diverse
+app.use(cors());
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-// Aggiungi queste righe nel file server.js
 
 app.use(express.json());
 
